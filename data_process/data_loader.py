@@ -8,7 +8,11 @@ from fastNLP.io.file_reader import _read_conll
 from fastNLP.io.pipe.conll import _NERPipe
 
 
-class Conll2003NERPipe(_NERPipe):
+def convert_tag(tags):
+    return tags
+
+
+class NERPipe(_NERPipe):
     r"""
     Conll2003的NER任务的处理Pipe, 该Pipe会（1）复制raw_words列，并命名为words; (2）在words, target列建立词表
     (创建 :class:`fastNLP.Vocabulary` 对象，所以在返回的DataBundle中将有两个Vocabulary); (3）将words，target列根据相应的
@@ -45,13 +49,14 @@ class Conll2003NERPipe(_NERPipe):
         :return: DataBundle
         """
         # 读取数据
-        data_bundle = BaoWuNERLoader().load(paths)
+        self.convert_tag = convert_tag
+        data_bundle = NERLoader().load(paths)
         data_bundle = self.process(data_bundle)
 
         return data_bundle
 
 
-class BaoWuNERLoader(ConllLoader):
+class NERLoader(ConllLoader):
     r"""
     用于读取宝武合同的NER数据。每一行有2列内容，空行意味着隔开两个句子
 
