@@ -126,7 +126,7 @@ def entity2label(data, label_schema='BILOU', pos_key='pos_tags'):
                     labels[start_index + 1:end_index - 1] = ['I-' + entity_type] * (end_index - start_index - 2)
                 labels[start_index] = 'B-' + entity_type
                 labels[end_index - 1] = 'L-' + entity_type
-        elif label_schema == 'BMEOS':
+        elif label_schema == 'BIOES':
             if end_index - start_index == 1:
                 labels[start_index] = 'S-' + entity_type
             else:
@@ -281,6 +281,6 @@ if __name__ == '__main__':
     src_filename = os.path.join(DATA_DIR, 'vote/json_data/event_entity_train_data_label_new.json')
     dest_filename = os.path.join(DATA_DIR, 'vote/conll_data/event_entity_train_data_label_new.conll')
     tmp_paragraph_list = read_json_file(src_filename)
-    tmp_paragraph_list = json2label(tmp_paragraph_list, label_schema='BILOU', pos_key='pos_tags')
+    tmp_paragraph_list = json2label(tmp_paragraph_list, label_schema='BIOES', pos_key='pos_tags')
     output_conll(tmp_paragraph_list, dest_filename, has_context=False)
 
