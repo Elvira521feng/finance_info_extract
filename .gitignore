@@ -1,4 +1,5 @@
-./venv/
-./data/
-.idea/
-./config/
+./venv/*
+./data/*
+.idea/*
+./config/*
+./log/*
